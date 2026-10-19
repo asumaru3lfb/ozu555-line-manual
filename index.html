@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>大洲カンパニー公式LINE 運営マニュアル</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Maru+Gothic:wght@700&display=swap">
+<style>
+  /* 読み物は白い紙面、ブランドの紺＋メニューの生成りを地に。手順番号は朱で統一し、画面イメージの番号と本文を対応させる */
+  :root {
+    --navy: #2B4A63;
+    --navy-deep: #1F3749;
+    --navy-soft: #E4EBF1;
+    --kinari: #F6F1E6;
+    --kinari-deep: #EDE4D2;
+    --paper: #FFFFFF;
+    --ink: #1E2125;
+    --ink-soft: #5E656E;
+    --hair: #DDE1E6;
+    --pin: #E0503F;
+    --pin-soft: #FCEBE8;
+    --ok: #2E7D5B;
+    --ok-soft: #E3F2EA;
+    --line-green: #06C755;
+    --chat: #8DABD8;
+    --bubble-me: #A3E57E;
+    --admin-paper: #F4F6FB;
+    --admin-ink: #0C0F14;
+    --admin-indigo: #1E4FFF;
+    --admin-hair: #E1E5F0;
+    --f-body: "BIZ UDPGothic", "BIZ UDPゴシック", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    --f-display: "Zen Maru Gothic", "BIZ UDPGothic", "Hiragino Maru Gothic ProN", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; background: var(--kinari); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.85; -webkit-font-smoothing: antialiased; }
+  a { color: var(--navy); }
+  :focus-visible { outline: 3px solid var(--pin); outline-offset: 2px; }
+
+  /* ---------- ヘッダーとタブ ---------- */
+  header.site { background: var(--navy); color: #fff; padding: calc(env(safe-area-inset-top, 0px) + 22px) max(20px, env(safe-area-inset-right, 0px)) 0 max(20px, env(safe-area-inset-left, 0px)); }
+  .site-inner { max-width: 1100px; margin: 0 auto; }
+  .eyebrow { font-size: 12.5px; letter-spacing: .14em; opacity: .75; }
+  header.site h1 { font-family: var(--f-display); font-size: clamp(24px, 3.6vw, 34px); line-height: 1.35; margin: 6px 0 4px; text-wrap: balance; }
+  .site-meta { font-size: 13px; opacity: .8; margin-bottom: 18px; }
+  .stg-flag { display: inline-block; background: #FFE7A3; color: #5A4300; border-radius: 4px; padding: 0 8px; font-size: 12px; font-weight: 700; margin-left: 6px; }
+  nav.tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+  nav.tabs::-webkit-scrollbar { display: none; }
+  nav.tabs button { font: inherit; font-weight: 700; font-size: 15px; border: none; cursor: pointer; padding: 12px 22px; border-radius: 12px 12px 0 0; background: rgba(255,255,255,.12); color: rgba(255,255,255,.85); white-space: nowrap; }
+  nav.tabs button[aria-selected="true"] { background: var(--kinari); color: var(--navy); }
+  nav.tabs button:hover:not([aria-selected="true"]) { background: rgba(255,255,255,.2); }
+  @media (max-width: 520px) {
+    nav.tabs { gap: 4px; }
+    nav.tabs button { padding: 10px 10px; font-size: 13.5px; flex: 1; }
+    .subtabs { gap: 6px; }
+    .subtabs button { padding: 6px 12px; font-size: 14px; }
+    .subtabs .who { display: none; }
+  }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 26px max(20px, env(safe-area-inset-right, 0px)) 80px max(20px, env(safe-area-inset-left, 0px)); }
+  .panel[hidden] { display: none; }
+  .layout { display: grid; grid-template-columns: 210px 1fr; gap: 28px; align-items: start; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } .toc { position: static !important; } }
+  .toc { position: sticky; top: 16px; background: var(--paper); border-radius: 14px; padding: 16px; font-size: 14px; }
+  .toc b { display: block; font-size: 12px; color: var(--ink-soft); letter-spacing: .08em; margin-bottom: 6px; }
+  .toc a { display: block; text-decoration: none; padding: 5px 8px; border-radius: 8px; color: var(--ink); }
+  .toc a:hover { background: var(--navy-soft); }
+
+  /* ---------- 会員画面のサブタブ ---------- */
+  .subtabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+  .subtabs button { font: inherit; font-weight: 700; cursor: pointer; border: 2px solid var(--navy); background: var(--paper); color: var(--navy); border-radius: 999px; padding: 8px 18px; display: inline-flex; align-items: center; gap: 8px; }
+  .subtabs button[aria-selected="true"] { background: var(--navy); color: #fff; }
+  .subtabs .who { font-size: 11.5px; font-weight: 400; opacity: .8; }
+
+  /* ---------- 本文の部品 ---------- */
+  section.card { background: var(--paper); border-radius: 16px; padding: 28px clamp(18px, 3vw, 34px); margin-bottom: 22px; scroll-margin-top: 16px; }
+  h2 { font-family: var(--f-display); font-size: 23px; color: var(--navy); margin: 0 0 6px; text-wrap: balance; }
+  h3 { font-size: 17px; margin: 26px 0 10px; padding-left: 12px; border-left: 5px solid var(--navy); }
+  .lead { font-size: 16.5px; margin: 0 0 18px; max-width: 70ch; }
+  p { margin: 0 0 12px; max-width: 72ch; }
+  .muted { color: var(--ink-soft); font-size: 14px; }
+  .tablewrap { overflow-x: auto; margin: 8px 0 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 520px; }
+  th, td { border-bottom: 1px solid var(--hair); padding: 10px 12px; text-align: left; vertical-align: top; }
+  th { background: var(--navy-soft); font-weight: 700; font-size: 13.5px; }
+  td.c, th.c { text-align: center; }
+  .yes { color: var(--ok); font-weight: 700; }
+  .no { color: #B8BDC4; }
+  .note { background: var(--kinari); border-radius: 12px; padding: 14px 18px; font-size: 15px; margin: 14px 0; }
+  .warn { background: var(--pin-soft); border-left: 5px solid var(--pin); border-radius: 8px; padding: 12px 16px; font-size: 15px; margin: 14px 0; }
+  .demo { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; margin: 8px 0 4px; }
+  @media (max-width: 720px) { .demo { grid-template-columns: 1fr; justify-items: center; } .demo > .steps-col { justify-self: stretch; } }
+  .phones { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; margin: 10px 0 6px; }
+  figure { margin: 0; }
+  figcaption { font-size: 13px; color: var(--ink-soft); text-align: center; margin-top: 8px; }
+  ol.steps { list-style: none; padding: 0; margin: 0; counter-reset: s; }
+  ol.steps li { counter-increment: s; position: relative; padding-left: 38px; margin-bottom: 12px; }
+  ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 1px; width: 26px; height: 26px; border-radius: 50%; background: var(--pin); color: #fff; font-size: 14px; font-weight: 700; display: grid; place-items: center; }
+  .t { position: relative; }
+  .pin.on { top: -11px; right: -11px; }
+  .pin.onl { top: -11px; left: -11px; }
+  .pin { position: absolute; width: 26px; height: 26px; border-radius: 50%; background: var(--pin); color: #fff; font-size: 14px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 0 0 3px #fff; z-index: 5; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chips span { background: var(--navy-soft); color: var(--navy); border-radius: 999px; padding: 2px 12px; font-size: 13.5px; }
+  .who-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin: 10px 0 6px; }
+  .who-card { border: 1px solid var(--hair); border-radius: 14px; padding: 16px; }
+  .who-card .role { font-weight: 700; font-size: 17px; color: var(--navy); }
+  .who-card .tool { font-size: 13px; color: var(--ink-soft); margin-bottom: 6px; }
+  .who-card p { font-size: 14.5px; margin: 0; }
+  .flow { display: flex; align-items: stretch; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+  .flow .st { flex: 1 1 150px; border: 2px solid var(--navy); border-radius: 12px; padding: 10px 12px; text-align: center; font-size: 14px; background: #fff; }
+  .flow .st b { display: block; color: var(--navy); font-size: 15px; }
+  .flow .ar { display: flex; align-items: center; color: var(--navy); font-weight: 700; }
+  .checks { list-style: none; padding: 0; margin: 0; }
+  .checks li { position: relative; padding: 9px 0 9px 32px; border-bottom: 1px dashed var(--hair); }
+  .checks li::before { content: ""; position: absolute; left: 0; top: 13px; width: 18px; height: 18px; border: 2px solid var(--navy); border-radius: 4px; }
+  .cmd { font-family: ui-monospace, Menlo, monospace; font-size: 13.5px; background: var(--navy-soft); padding: 1px 6px; border-radius: 4px; word-break: break-all; }
+
+  /* ---------- スマホ（LINE）画面 ---------- */
+  .phone { width: 250px; border: 7px solid #1d1d1f; border-radius: 30px; overflow: hidden; background: #fff; position: relative; flex: none; font-size: 12.5px; }
+  .phone .sb { height: 22px; font-size: 11px; display: flex; justify-content: space-between; padding: 0 16px; align-items: center; }
+  .phone .hd { display: flex; gap: 8px; padding: 6px 12px; font-size: 13px; font-weight: 700; border-bottom: 1px solid #e6e6e6; }
+  .phone .hd span { color: #888; font-weight: 400; }
+  .phone .chat { background: var(--chat); padding: 10px; display: flex; flex-direction: column; gap: 7px; min-height: 160px; }
+  .bub { font-size: 12px; line-height: 1.55; padding: 7px 10px; border-radius: 13px; max-width: 88%; }
+  .bub.t { background: #fff; align-self: flex-start; }
+  .bub.m { background: var(--bubble-me); align-self: flex-end; }
+  .bub.photo { background: linear-gradient(160deg, #c9b48a, #7f8f6e 55%, #5d6f86); color: #fff; height: 52px; width: 60%; align-self: flex-end; }
+  .qr { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; }
+  .qr span { background: #fff; border: 1px solid #c9c9c9; border-radius: 14px; padding: 2px 9px; font-size: 11px; }
+  .vchoice { background: #fff; border-radius: 13px; padding: 9px; font-size: 11.5px; align-self: flex-start; width: 90%; }
+  .vchoice b { display: block; margin-bottom: 4px; }
+  .vchoice span { display: block; background: #EEF0F2; border-radius: 6px; padding: 3px; text-align: center; margin-top: 4px; }
+  .phone .rm img { display: block; width: 100%; height: auto; }
+  .phone .bar { font-size: 11.5px; text-align: center; padding: 5px; border-top: 1px solid #e6e6e6; }
+  .lcard { background: #fff; border-radius: 13px; overflow: hidden; width: 88%; align-self: flex-start; font-size: 11.5px; }
+  .lcard .ph { height: 58px; background: linear-gradient(160deg, #c9b48a, #7f8f6e 55%, #5d6f86); }
+  .lcard .in { padding: 7px 10px; }
+  .lcard .in b { display: block; font-size: 12.5px; }
+  .lcard .m { color: #999; font-size: 10.5px; }
+  .lcard .go { margin: 0 10px 6px; background: var(--line-green); color: #fff; text-align: center; border-radius: 7px; padding: 5px; font-weight: 700; }
+  .lcard .two { display: flex; gap: 5px; margin: 0 10px 9px; }
+  .lcard .two span { flex: 1; text-align: center; border: 1px solid #d8d8d8; border-radius: 7px; padding: 4px; font-weight: 700; }
+
+  /* ---------- 管理画面 ---------- */
+  .win { border: 1px solid #c8ccd4; border-radius: 12px; overflow: hidden; background: var(--admin-paper); position: relative; font-size: 13px; color: var(--admin-ink); margin: 10px 0 16px; }
+  .win .chrome { background: #E9EBEF; padding: 7px 12px; display: flex; align-items: center; gap: 6px; }
+  .win .chrome i { width: 10px; height: 10px; border-radius: 50%; background: #c4c8cf; }
+  .win .chrome .url { margin-left: 8px; background: #fff; border-radius: 6px; padding: 2px 10px; font-size: 11.5px; color: #555; flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .win .top { background: var(--admin-ink); color: #fff; display: flex; align-items: center; gap: 10px; padding: 9px 14px; flex-wrap: wrap; }
+  .win .top .mk { width: 22px; height: 22px; background: var(--admin-indigo); border-radius: 6px; display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+  .win .top nav { display: flex; gap: 4px; }
+  .win .top nav span { padding: 3px 11px; border-radius: 99px; color: rgba(255,255,255,.65); font-size: 12px; font-weight: 700; }
+  .win .top nav span.on { background: #fff; color: var(--admin-ink); }
+  .win .top .whoami { margin-left: auto; font-size: 11.5px; opacity: .75; }
+  .win .body { padding: 14px 16px; overflow-x: auto; }
+  .win .ttl { font-size: 17px; font-weight: 700; }
+  .win .sub { color: #5A6472; font-size: 12px; margin-bottom: 10px; }
+  .tb { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+  .search { background: #fff; border: 1px solid var(--admin-hair); border-radius: 8px; padding: 4px 10px; color: #8a93a0; min-width: 180px; }
+  .achip { border: 1px solid var(--admin-hair); background: #fff; border-radius: 99px; padding: 2px 10px; font-size: 12px; }
+  .achip.on { background: var(--admin-ink); color: #fff; border-color: var(--admin-ink); }
+  .abtn { border: 1px solid #c3c9d4; background: #fff; border-radius: 7px; padding: 3px 10px; font-size: 12px; font-weight: 700; }
+  .abtn.pri { background: var(--admin-indigo); border-color: var(--admin-indigo); color: #fff; }
+  .abtn.dark { background: var(--admin-ink); border-color: var(--admin-ink); color: #fff; }
+  .abtn.red { color: #E5484D; border-color: #E5484D; }
+  .atable { width: 100%; border-collapse: collapse; background: #fff; font-size: 12.5px; border: 1px solid var(--admin-hair); min-width: 560px; }
+  .atable th { background: #ECEFF9; border-bottom: 1px solid var(--admin-hair); padding: 6px 8px; font-size: 12px; }
+  .atable td { border-bottom: 1px solid var(--admin-hair); padding: 6px 8px; }
+  .pill { border-radius: 99px; padding: 1px 8px; font-size: 11px; font-weight: 700; }
+  .pill.act { background: #E1F8EE; color: #0EA672; }
+  .pill.wd { background: #FDE8E8; color: #E5484D; }
+  .tag { background: #E8EDFF; color: var(--admin-indigo); border-radius: 4px; padding: 0 6px; font-size: 11px; }
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(110px, 1fr)); gap: 8px; margin-bottom: 8px; }
+  .stat { background: #fff; border: 1px solid var(--admin-hair); border-radius: 10px; padding: 9px; }
+  .stat .l { color: #5A6472; font-size: 11.5px; }
+  .stat .v { font-size: 22px; font-weight: 700; }
+  .charts { display: grid; grid-template-columns: repeat(3, minmax(150px, 1fr)); gap: 8px; }
+  .chartc { background: #fff; border: 1px solid var(--admin-hair); border-radius: 10px; padding: 9px; font-size: 12px; font-weight: 700; }
+  .bars { display: flex; align-items: flex-end; gap: 4px; height: 56px; margin-top: 6px; }
+  .bars i { flex: 1; background: var(--admin-indigo); opacity: .75; border-radius: 3px 3px 0 0; }
+  .hbar { display: flex; align-items: center; gap: 6px; margin-top: 5px; font-weight: 400; font-size: 11.5px; }
+  .hbar span { width: 74px; color: #5A6472; }
+  .hbar i { height: 8px; background: var(--admin-indigo); opacity: .75; border-radius: 3px; }
+  .drawer-wrap { position: relative; min-height: 430px; }
+  .drawer { position: absolute; right: 0; top: 0; bottom: 0; width: min(330px, 70%); background: #fff; border-left: 1px solid var(--admin-hair); box-shadow: -8px 0 16px rgba(0,0,0,.08); padding: 14px; font-size: 12.5px; }
+  .drawer .nm { font-size: 16px; font-weight: 700; }
+  .drawer h5 { margin: 12px 0 4px; font-size: 11px; color: #5A6472; letter-spacing: .05em; }
+  .kv { display: grid; grid-template-columns: 82px 1fr; gap: 2px 8px; }
+  .kv b { color: #5A6472; }
+  .sel { border: 1px solid #c3c9d4; border-radius: 6px; padding: 1px 8px; background: #fff; display: inline-block; }
+  .apanel { background: #fff; border: 1px solid var(--admin-hair); border-radius: 10px; padding: 11px; margin-bottom: 9px; }
+  .apanel h6 { margin: 0 0 6px; font-size: 13px; }
+  .fgrid { display: grid; grid-template-columns: repeat(4, minmax(100px, 1fr)); gap: 8px; }
+  .fgrid label { display: block; color: #5A6472; font-size: 11px; }
+  .count { display: flex; align-items: baseline; gap: 8px; margin-top: 8px; }
+  .count b { font-size: 26px; color: var(--admin-indigo); }
+  .ta { border: 1px solid var(--admin-hair); background: #ECEFF9; border-radius: 8px; min-height: 56px; padding: 7px; }
+  .chatwin { display: grid; grid-template-columns: 30% 1fr; border: 1px solid var(--admin-hair); border-radius: 10px; overflow: hidden; background: #fff; min-width: 480px; }
+  .chatwin .list div { padding: 7px 10px; border-bottom: 1px solid var(--admin-hair); }
+  .chatwin .list div.on { background: #E8EDFF; }
+  .chatwin .mainc { border-left: 1px solid var(--admin-hair); padding: 10px; display: flex; flex-direction: column; gap: 7px; }
+  .chatwin .msg { padding: 5px 10px; border-radius: 10px; max-width: 80%; }
+  .chatwin .in { background: #ECEFF9; align-self: flex-start; }
+  .chatwin .out { background: var(--admin-indigo); color: #fff; align-self: flex-end; }
+  .switch { display: inline-block; width: 30px; height: 17px; border-radius: 10px; background: #0EA672; vertical-align: middle; position: relative; }
+  .switch::after { content: ""; position: absolute; right: 2px; top: 2px; width: 13px; height: 13px; border-radius: 50%; background: #fff; }
+  .login { width: 270px; margin: 14px auto; background: #fff; border: 1px solid var(--admin-hair); border-radius: 12px; padding: 16px; }
+  .login .f { border: 1px solid var(--admin-hair); background: #ECEFF9; border-radius: 7px; padding: 5px 9px; margin: 3px 0 9px; color: #8a93a0; }
+  svg.flowsvg { width: 100%; height: auto; display: block; margin: 8px 0 12px; }
+  footer.site { text-align: center; font-size: 13px; color: var(--ink-soft); padding: 0 20px 40px; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="eyebrow">OZU 555 PROJECT ・ 一般社団法人キタ・マネジメント</div>
+    <h1>大洲カンパニー公式LINE 運営マニュアル</h1>
+    <div class="site-meta">2026年10月19日版 ・ 運営メンバー（KM・KH・いよぎん担当者）向け<span class="stg-flag">リーダー投稿窓口・ニックネームの守りはSTGのみ</span></div>
+    <nav class="tabs" role="tablist" aria-label="マニュアルの章">
+      <button role="tab" id="tab-overview" aria-controls="p-overview" aria-selected="true">全体の仕組み</button>
+      <button role="tab" id="tab-member" aria-controls="p-member" aria-selected="false">会員画面（LINE）</button>
+      <button role="tab" id="tab-admin" aria-controls="p-admin" aria-selected="false">管理画面</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- =========================================================== 全体の仕組み -->
+<div class="panel" id="p-overview" role="tabpanel" aria-labelledby="tab-overview">
+  <div class="layout">
+    <aside class="toc"><b>このタブの内容</b>
+      <a href="#ov-who">誰が何を使うか</a><a href="#ov-env">STGと本番</a><a href="#ov-stage">会員の段階</a><a href="#ov-rule">運用ルール</a><a href="#ov-trouble">困ったとき</a><a href="#ov-todo">本番前に決めること</a>
+    </aside>
+    <div>
+      <section class="card" id="ov-who">
+        <h2>誰が何を使うか</h2>
+        <p class="lead">会員が使う<b>LINEの画面</b>と、運営が使う<b>管理画面</b>の2つでできています。どちらも、Cloudflare上のプログラムが会員台帳を動かしています。</p>
+        <div class="who-grid">
+          <div class="who-card"><div class="role">一般の会員</div><div class="tool">LINE ・ 通常の2タブ</div><p>友だち追加、ニックネーム登録、あいさつの質問への回答、メニューから案内ページを見る、会員情報の確認</p></div>
+          <div class="who-card"><div class="role">リーダー</div><div class="tool">LINE ・ 「投稿」タブ付き</div><p>写真と文章を送って投稿する、自分の投稿の状況を見る、運営に相談する</p></div>
+          <div class="who-card"><div class="role">運営（承認者）</div><div class="tool">LINE ・ 「運営」タブ付き</div><p>届いた投稿を承認して配信する、直す、差し戻す</p></div>
+          <div class="who-card"><div class="role">管理画面のユーザー</div><div class="tool">パソコンのブラウザ</div><p>権限に応じて会員の閲覧・CSV出力・LINE配信・データ削除・ID管理</p></div>
+        </div>
+      </section>
+
+      <section class="card" id="ov-env">
+        <h2>テスト環境（STG）と本番</h2>
+        <p class="lead">修正はまずSTGで試し、問題がなければ同じ内容を本番に反映します。STGを触っても、本番の会員には何も届きません。</p>
+        <div class="tablewrap"><table>
+          <tr><th style="width:22%"></th><th>STG（テスト）</th><th>本番</th></tr>
+          <tr><td><b>LINEアカウント</b></td><td>STG_大洲カンパニー</td><td>大洲カンパニー（@478jcakq）</td></tr>
+          <tr><td><b>管理画面</b></td><td>STGプログラム（ozu555-line-staging）の /admin/panel</td><td>本番プログラム（ozu555-line）の /admin/panel</td></tr>
+          <tr><td><b>使う人</b></td><td>運営メンバーのテスト用</td><td>一般の会員</td></tr>
+        </table></div>
+        <p class="muted">管理画面のURLは、管理者から個別にお伝えします。</p>
+      </section>
+
+      <section class="card" id="ov-stage">
+        <h2>会員の段階</h2>
+        <div class="flow">
+          <div class="st"><b>観光客</b>まだLINE未登録</div><div class="ar">→</div>
+          <div class="st"><b>関係人口①</b>友だち追加して登録</div><div class="ar">→</div>
+          <div class="st"><b>関係人口②</b>配信のリンクをよく押す人</div><div class="ar">→</div>
+          <div class="st"><b>コアメンバー</b>LINEの外で個別にやりとり</div>
+        </div>
+        <p>②は、<b>直近30件の一斉配信のうち、リンクを20%以上押した人</b>です。配信を受けたのが10件未満の人は①のままです。①②は運営側の集計用で、会員には表示しません。</p>
+      </section>
+
+      <section class="card" id="ov-rule">
+        <h2>運用ルール</h2>
+        <p class="lead">取り返しのつかない事故は「本番でいきなり試す」「鍵が漏れる」「個人情報を広い場所に置く」の3つから起きます。</p>
+        <h3>変更は必ずSTGから</h3>
+        <div class="flow">
+          <div class="st"><b>① STGに反映</b>テスト環境だけを変える</div><div class="ar">→</div>
+          <div class="st"><b>② 自分のLINEで試す</b>ブロック→追加し直しで新しい人の動きも確認</div><div class="ar">→</div>
+          <div class="st"><b>③ 本番に反映</b>同じ内容を本番へ</div><div class="ar">→</div>
+          <div class="st"><b>④ 変更メモに記録</b>版の番号と戻し方を残す</div>
+        </div>
+        <p class="muted">おかしければ前の版に戻せます。プログラムと変更メモは、全社共有の「LINE設計」フォルダにあります。</p>
+        <h3>鍵とトークン</h3>
+        <ul>
+          <li>Channel secret・チャネルアクセストークンは、<b>KMのパスワード管理にだけ</b>置く</li>
+          <li>チャット・メール・共有ドライブ（全社共有を含む）には貼らない・置かない</li>
+          <li>うっかり外に出したら、すぐ再発行する。再発行すると古いものは無効になる</li>
+          <li>管理画面のID・パスワードも同じ扱い。使わなくなった人のIDは無効化する</li>
+        </ul>
+        <h3>個人情報</h3>
+        <ul>
+          <li>会員の名簿・LINEのID・個人の連絡先は、素材置き場（おまかせクラウドストレージ）に置かない</li>
+          <li>CSVで書き出した会員データは、使い終わったら消す</li>
+          <li>「データを消してほしい」と依頼があったら、会員ID（6桁）で本人を確かめ、管理者が管理画面から削除する</li>
+        </ul>
+        <h3>配信通数</h3>
+        <p>LINEの無料枠は<b>月200通</b>です。一斉配信は「人数×回数」通を使います。会員が増える前に有料プランへの切り替えが必要です。通数が足りないと配信が止まります。</p>
+      </section>
+
+      <section class="card" id="ov-trouble">
+        <h2>困ったとき</h2>
+        <p class="lead">まず<b>「トーク画面を一度閉じて開き直す」</b>を試してください。表にないものは、画面のスクリーンショットとエラー文をそのまま丸岡さんに送ってください。</p>
+        <div class="tablewrap"><table>
+          <tr><th style="width:26%">こんなとき</th><th style="width:30%">考えられる原因</th><th>すること</th></tr>
+          <tr><td>メニューが切り替わらない</td><td>LINEアプリが古い表示のまま</td><td>トーク画面を閉じて開き直す。役割の変更なら、管理画面で付け直す</td></tr>
+          <tr><td>タブを押しても切り替わらない</td><td>メニューを登録し直した直後で、LINE側の反映が遅れている</td><td>数分待ってからもう一度押す</td></tr>
+          <tr><td>ニックネームがおかしい人がいる</td><td>10/19の対策より前に登録された</td><td>管理画面からは直せない。本人にブロック→追加し直しをお願いすると、ニックネームから聞き直せる</td></tr>
+          <tr><td>管理画面にログインできない</td><td>パスワードを5回間違えてロックされた</td><td>管理者が設定画面で解除する。忘れたときはパスワードを再設定する</td></tr>
+          <tr><td>「認証切れです」と出る</td><td>ログインから12時間たった</td><td>もう一度ログインする</td></tr>
+          <tr><td>一斉配信が送れない（quota insufficient）</td><td>今月の配信通数が足りない</td><td>対象を絞るか、LINEの料金プランを上げる</td></tr>
+          <tr><td>運営に承認カードが届かない</td><td>「運営」の役割が付いていない、またはブロック中</td><td>管理画面で役割を確認する。「運営」タブの「承認待ち」からも確認できる</td></tr>
+          <tr><td>リーダーの投稿が承認待ちに出ない</td><td>リーダーが「送信完了」を押していない</td><td>30分たつと自動で承認待ちに回る。急ぐときはリーダーに「送信完了」を押してもらう</td></tr>
+          <tr><td>返事が必要な問い合わせが来た</td><td>自動返信で「個別で返信いたしかねます」が出ている</td><td>管理画面の「個別に配信」でその人を開き、個別やりとりをオンにして返事する</td></tr>
+          <tr><td>会員が「退会・ブロック」に入った</td><td>本人がブロックした</td><td>対応不要。配信対象から自動で外れる。追加し直せば戻る</td></tr>
+        </table></div>
+      </section>
+
+      <section class="card" id="ov-todo">
+        <h2>本番前に決めること</h2>
+        <p class="lead">10月20日の週のリリース（9/28会議の目安）に向けて、次の項目が残っています。</p>
+        <ul class="checks">
+          <li>リーダー投稿窓口とニックネームの守りを、STGで確かめてから本番へ反映する</li>
+          <li>アカウント全体の「既定メニュー」を登録用にする（個別の切り替えが万一失敗しても、未登録の人が通常メニューに入らないように）</li>
+          <li>3タブ目（運営・投稿）の文字とアイコンを、今のメニューと同じテイストに差し替える</li>
+          <li>警報メールの送信元アドレスを設定する（今は空欄で、異常時のメールが届かない可能性がある）</li>
+          <li>LINEの料金プランを決める（無料枠は月200通）</li>
+          <li>管理画面のIDを担当者に発行する（KM・KH・いよぎん）</li>
+          <li>承認者を2人以上指名し、最初に試すリーダー2〜3人を決める</li>
+          <li>投稿を整えるときの文体の見本を用意する（福山さんのブランディングと揃える）</li>
+        </ul>
+        <h3>まだできないこと</h3>
+        <ul>
+          <li>管理画面から会員のニックネームを直すこと</li>
+          <li>リーダー投稿のAI下書き、関心テーマでの配信先の絞り込み、週まとめの自動配信、夜間の翌朝回し、LINE内の編集画面</li>
+          <li>会員からの問い合わせに自動で答えること（今は定型文のみ）</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================== 会員画面 -->
+<div class="panel" id="p-member" role="tabpanel" aria-labelledby="tab-member" hidden>
+  <div class="subtabs" role="tablist" aria-label="会員の種類">
+    <button role="tab" id="sub-general" aria-controls="m-general" aria-selected="true">一般ユーザー <span class="who">通常の2タブ</span></button>
+    <button role="tab" id="sub-leader" aria-controls="m-leader" aria-selected="false">リーダー権限 <span class="who">「投稿」タブ</span></button>
+    <button role="tab" id="sub-unei" aria-controls="m-unei" aria-selected="false">運営 <span class="who">「運営」タブ</span></button>
+  </div>
+
+  <!-- ---------- 一般ユーザー ---------- -->
+  <div id="m-general" role="tabpanel" aria-labelledby="sub-general">
+    <section class="card">
+      <h2>友だち追加からニックネーム登録まで</h2>
+      <p class="lead">友だち追加した人は、まずニックネームを登録します。登録が済むまでは、メニューが「ニックネームを登録する」ボタン1つだけになります。</p>
+      <div class="phones">
+        <figure>
+          <div class="phone">
+            <div class="sb"><span>10:57</span><span>●●●</span></div>
+            <div class="hd"><span>‹</span>大洲カンパニー</div>
+            <div class="chat" style="min-height:200px">
+              <div class="bub t">はじめまして！ 30秒だけ、教えてください。<br><br>まず、何とお呼びすればいいですか？<br>（ニックネームで大丈夫です。あとで変えられます）</div>
+              <div class="qr"><span class="t">入力する<span class="pin onl">1</span></span></div>
+            </div>
+            <div class="rm t"><span class="pin" style="top:6px; right:6px">2</span><img src="images/touroku.jpg" alt="登録用メニュー：ニックネームを登録する" width="1000" height="337"></div>
+            <div class="bar">はじめに ▾</div>
+          </div>
+          <figcaption>友だち追加した直後</figcaption>
+        </figure>
+        <figure>
+          <div class="phone">
+            <div class="sb"><span>10:58</span><span>●●●</span></div>
+            <div class="hd"><span>‹</span>大洲カンパニー</div>
+            <div class="chat" style="min-height:282px">
+              <div class="bub m">あすか</div>
+              <div class="bub t">「あすか」さん、とお呼びしてよいですか？</div>
+              <div class="qr"><span class="t">はい<span class="pin onl">3</span></span><span>入力し直す</span></div>
+              <div class="bub m">はい</div>
+            </div>
+          </div>
+          <figcaption>本人が確認してから登録</figcaption>
+        </figure>
+        <figure>
+          <div class="phone">
+            <div class="sb"><span>10:58</span><span>●●●</span></div>
+            <div class="hd"><span>‹</span>大洲カンパニー</div>
+            <div class="chat" style="min-height:282px">
+              <div class="vchoice t"><span class="pin on">4</span><b>ありがとうございます！<br>大洲の「気になる」は、どれに近いですか？</b><span>人に会いたい</span><span>たべもの・商品</span><span>大洲城</span><span>…</span></div>
+            </div>
+          </div>
+          <figcaption>あいさつの質問へ</figcaption>
+        </figure>
+      </div>
+      <ol class="steps" style="margin-top:16px">
+        <li>友だち追加すると、ニックネームを聞かれます。「入力する」を押すとキーボードが開きます</li>
+        <li>メニューは登録用の1ボタンだけ。途中で離れた人も、ここを押すと「おかえりなさい！ 続きから始めます」と再開できます</li>
+        <li>入力した名前はすぐには登録されません。<b>「はい」を押して初めて登録</b>されます</li>
+        <li>登録が済むとメニューが通常の2タブに切り替わり、あいさつの質問が続きます</li>
+      </ol>
+      <h3>あいさつの質問の順番</h3>
+      <div class="chips"><span>推し</span><span>→ 大洲との関係</span><span>→ お住まい</span><span>→ 関わり方の興味</span><span>→ 紹介元</span><span>→ 紹介者のお名前（任意）</span></div>
+      <div class="warn"><b>登録できない名前：</b>空白だけ、20文字を超えるもの、URL、記号や絵文字だけ、「関わりたい」などボタンの言葉。理由を添えて聞き直します。</div>
+      <p class="muted">ブロックしてから追加し直した人には、ニックネームからもう一度聞きます。答えた内容で登録が更新されます。</p>
+    </section>
+
+    <section class="card">
+      <h2>リッチメニュー（画面下のメニュー）</h2>
+      <p class="lead">「まちを知る」「まちに関わる」の2タブです。上のタブを押すと切り替わります。</p>
+      <div class="demo">
+        <figure>
+          <div class="phone">
+            <div class="sb"><span>11:00</span><span>●●●</span></div>
+            <div class="hd"><span>‹</span>大洲カンパニー</div>
+            <div class="chat" style="min-height:96px"><div class="bub t">会員情報について、何を知りたいですか？</div><div class="qr"><span>登録内容を確認する</span><span>退会について</span></div></div>
+            <div class="rm t"><span class="pin" style="top:4px; left:46%">1</span><span class="pin" style="bottom:4px; right:4px">2</span><img src="images/shiru.jpg" alt="まちを知るタブ" width="1000" height="674"></div>
+            <div class="bar">メニュー ▾</div>
+          </div>
+          <figcaption>「まちを知る」タブ</figcaption>
+        </figure>
+        <div class="steps-col">
+          <ol class="steps">
+            <li>上のタブで「まちを知る」「まちに関わる」を切り替えます</li>
+            <li>いちばん下の帯「会員情報について」を押すと、「登録内容を確認する」「退会について」を選べます</li>
+          </ol>
+          <div class="tablewrap"><table style="min-width:0">
+            <tr><th>タブ</th><th>ボタン</th><th>押したとき</th></tr>
+            <tr><td>まちを知る</td><td>大洲の人／まちの動き／きょうの大洲／数字でみる大洲</td><td>案内ページが開く</td></tr>
+            <tr><td>まちに関わる</td><td>手伝う／学ぶ／あそぶ・会う／応援する／住む</td><td>案内ページが開く</td></tr>
+            <tr><td>まちに関わる</td><td>仕事で関わる</td><td>トークに案内文が届く</td></tr>
+          </table></div>
+          <img src="images/kakawaru.jpg" alt="まちに関わるタブ" width="1000" height="674" style="width:100%; max-width:300px; height:auto; border-radius:10px; border:1px solid var(--hair)">
+          <p class="muted">案内ページへのボタンは、押された回数だけを匿名で数えています。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>会員情報と自由な発言</h2>
+      <h3>登録内容を確認する</h3>
+      <p>会員ID（6桁）・表示名・推し・大洲との関係・お住まい・関わり方の希望・紹介元が表示されます。問い合わせのときは、この<b>会員ID</b>で本人を特定します。「退会について」では、ブロックすれば配信が止まることを案内します。</p>
+      <h3>会員が自由に文字を送ったとき</h3>
+      <p>自動で「すみません！個別で返信いたしかねます」と返します。運営が返事をしたいときは、管理画面の「個別に配信」で対応します。</p>
+    </section>
+  </div>
+
+  <!-- ---------- リーダー権限 ---------- -->
+  <div id="m-leader" role="tabpanel" aria-labelledby="sub-leader" hidden>
+    <section class="card">
+      <h2>リーダー投稿窓口の流れ</h2>
+      <p class="lead">管理画面に触れないプロジェクトリーダーが、LINEで写真と文章を送るだけで発信できます。運営は届いたカードを見て「承認して配信」を押すだけです。</p>
+      <svg class="flowsvg" viewBox="0 0 760 300" role="img" aria-label="投稿は運営の承認を通ってから配信される" font-family="BIZ UDPGothic, sans-serif" font-size="13">
+        <defs><marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2B4A63"/></marker></defs>
+        <g fill="none" stroke="#2B4A63" stroke-width="1.4">
+          <path d="M180 140H210" marker-end="url(#fa)"/><path d="M370 140H400" marker-end="url(#fa)"/><path d="M510 140H540" marker-end="url(#fa)"/>
+          <path d="M455 102V70H540" marker-end="url(#fa)"/><path d="M455 178V210H540" marker-end="url(#fa)"/>
+          <path d="M250 114V92H330V114" marker-end="url(#fa)"/><path d="M640 236V280H100V166" marker-end="url(#fa)"/>
+        </g>
+        <g stroke="#2B4A63" stroke-width="1.4" fill="#fff"><rect x="20" y="114" width="160" height="52" rx="8"/><rect x="540" y="44" width="200" height="52" rx="8"/><rect x="540" y="114" width="200" height="52" rx="8"/><rect x="540" y="184" width="200" height="52" rx="8"/><polygon points="400,140 455,102 510,140 455,178"/></g>
+        <rect x="210" y="114" width="160" height="52" rx="8" fill="#E4EBF1" stroke="#2B4A63" stroke-width="2.4"/>
+        <g text-anchor="middle" fill="#1E2125">
+          <text x="100" y="137" font-weight="700">リーダーが送る</text><text x="100" y="156" font-size="11.5" fill="#5E656E">写真と文章→送信完了</text>
+          <text x="290" y="137" font-weight="700">承認待ち</text><text x="290" y="156" font-size="11.5" fill="#5E656E">運営のLINEにカード</text>
+          <text x="455" y="144">運営が判断</text>
+          <text x="640" y="67" font-weight="700">すぐ配信</text><text x="640" y="86" font-size="11.5" fill="#5E656E">全員へ・リーダーに通知</text>
+          <text x="640" y="137" font-weight="700">週まとめに入れる</text><text x="640" y="156" font-size="11.5" fill="#5E656E">金曜の自動配信は未実装</text>
+          <text x="640" y="207" font-weight="700">差し戻す</text><text x="640" y="226" font-size="11.5" fill="#5E656E">ひとことを添えて返す</text>
+          <text x="290" y="84" font-size="11.5" fill="#5E656E">直す（承認待ちのまま）</text>
+          <text x="370" y="272" font-size="11.5" fill="#5E656E">リーダーに通知 → 追記して送信完了</text>
+        </g>
+      </svg>
+      <div class="note">リーダーの役割は、管理者が管理画面の会員詳細で付けます（管理画面タブの「会員詳細・役割・削除」）。本人がトーク画面を開き直すと「投稿」タブが増えます。</div>
+    </section>
+
+    <section class="card">
+      <h2>リーダーの操作（「投稿」タブ）</h2>
+      <p class="lead">いつものLINEで写真と文章を送るだけです。文章は箇条書きや話し言葉のままで構いません。</p>
+      <div class="demo">
+        <figure>
+          <div class="phone">
+            <div class="sb"><span>18:02</span><span>●●●</span></div>
+            <div class="hd"><span>‹</span>大洲カンパニー</div>
+            <div class="chat" style="min-height:206px">
+              <div class="bub t">投稿モードです。写真と文章を送ってください。送り終わったら「送信完了」を押してください。</div>
+              <div class="bub photo">写真</div>
+              <div class="bub m">10/26(日)9時から肱川の河原で清掃やります！軍手は用意します</div>
+              <div class="qr"><span class="t">送信完了<span class="pin onl">2</span></span><span>取り消す</span></div>
+            </div>
+            <div class="rm t"><span class="pin" style="top:24%; left:4px">1</span><span class="pin" style="top:24%; right:4px">3</span><img src="images/toukou.jpg" alt="投稿タブ" width="1000" height="674"></div>
+            <div class="bar">メニュー ▾</div>
+          </div>
+          <figcaption>「投稿」タブと投稿モード</figcaption>
+        </figure>
+        <div class="steps-col">
+          <ol class="steps">
+            <li><b>投稿する</b>：投稿モードになります。写真と文章を送ってください</li>
+            <li><b>送信完了</b>を押すと1件として受け付けます。30分何も送らなければ自動で締めます。「取り消す」でやめられます</li>
+            <li><b>自分の投稿</b>：最近5件の状況（承認待ち／配信済みと届いた人数／差し戻しと理由）。差し戻しには「差し戻しに返事する」から追記できます</li>
+          </ol>
+          <div class="tablewrap"><table style="min-width:0">
+            <tr><th style="width:32%">ボタン</th><th>押したとき</th></tr>
+            <tr><td>書き方のコツ</td><td>いつ・どこで・何を・参加のしかた・問い合わせ先の5つを案内。例文も見られる</td></tr>
+            <tr><td>運営に相談</td><td>次に送った文章が運営の管理画面（個別チャット）に届く。配信はされない</td></tr>
+          </table></div>
+          <div class="note">配信されたとき・週まとめに入ったとき・差し戻されたときは、リーダーのLINEに自動で知らせが届きます。</div>
+          <div class="warn">人の顔が写る写真は、写っている人の了解をもらってから送ってください。</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ---------- 運営 ---------- -->
+  <div id="m-unei" role="tabpanel" aria-labelledby="sub-unei" hidden>
+    <section class="card">
+      <h2>運営（承認者）の操作（「運営」タブ）</h2>
+      <p class="lead">新しい投稿が届くと、写真付きのカードが運営のLINEに届きます。カードの中で承認まで済みます。</p>
+      <div class="demo">
+        <figure>
+          <div class="phone">
+            <div class="sb"><span>18:03</span><span>●●●</span></div>
+            <div class="hd"><span>‹</span>大洲カンパニー</div>
+            <div class="chat" style="min-height:230px">
+              <div class="bub t">新しい投稿が届きました（承認待ち 1件）</div>
+              <div class="lcard"><div class="ph"></div><div class="in"><b>10/26(日)9時から肱川の河原で…</b><span class="m">山本さん ・ 10/21 18:02</span><br>軍手は用意します。<br><span class="m">配信先：友だち全員（412人）</span></div><div class="go t">承認して配信<span class="pin on">1</span></div><div class="two"><span class="t">直す<span class="pin onl">2</span></span><span class="t">差し戻す<span class="pin on">3</span></span></div></div>
+            </div>
+            <div class="rm"><img src="images/unei.jpg" alt="運営タブ" width="1000" height="674"></div>
+            <div class="bar">メニュー ▾</div>
+          </div>
+          <figcaption>届いたカードと「運営」タブ</figcaption>
+        </figure>
+        <div class="steps-col">
+          <ol class="steps">
+            <li><b>承認して配信</b>：「すぐ配信／週まとめに入れる／やめる」を一度聞き返します。「すぐ配信」で友だち全員に送り、リーダーにも知らせます。2回押しても二重には送りません</li>
+            <li><b>直す</b>：今の文章が届きます。<b>【長押しでコピーして、再度全文を入力してください】</b>の案内どおり、今の文章をコピーして直し、全文をトークに送ります。直したカードがもう一度届き、そのまま承認できます</li>
+            <li><b>差し戻す</b>：リーダーへのひとことを選ぶか入力します（「日時を教えて」などの定型文あり）。ひとこと無しでは差し戻せません</li>
+          </ol>
+          <div class="tablewrap"><table style="min-width:0">
+            <tr><th style="width:32%">「運営」タブ</th><th>押したとき</th></tr>
+            <tr><td>承認待ち</td><td>承認待ちの投稿を、横にめくれるカードで古い順に表示（最大10件）</td></tr>
+            <tr><td>今週の配信予定</td><td>今週配信したものと、週まとめに入る予定の件数。週まとめの下書きも見られる</td></tr>
+            <tr><td>差し戻し中</td><td>返事待ちの投稿と、差し戻した日・伝えたこと。「催促」「取り下げる」ができる</td></tr>
+          </table></div>
+          <div class="warn">「すぐ配信」は取り消せません。文章・日時・写真の顔の了解を確かめてから押してください。</div>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <h2>試行版でまだできないこと</h2>
+      <ul>
+        <li>AIによる下書き（今はリーダーの文章そのまま）</li>
+        <li>関心テーマでの配信先の絞り込み（今は友だち全員のみ）</li>
+        <li>週まとめの金曜自動配信（今は「週まとめ待ち」の印が付くだけ）</li>
+        <li>夜間（21時〜8時）の翌朝回し（今はその場で配信）</li>
+        <li>LINE内の編集画面（今は直した文章をトークに送る方式）</li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<!-- =========================================================== 管理画面 -->
+<div class="panel" id="p-admin" role="tabpanel" aria-labelledby="tab-admin" hidden>
+  <div class="layout">
+    <aside class="toc"><b>このタブの内容</b>
+      <a href="#ad-login">ログインと権限</a><a href="#ad-dash">ダッシュボード</a><a href="#ad-list">会員一覧</a><a href="#ad-detail">会員詳細・役割・削除</a><a href="#ad-deliver">LINE配信</a><a href="#ad-settings">ID管理</a>
+    </aside>
+    <div>
+      <section class="card" id="ad-login">
+        <h2>ログインと権限</h2>
+        <p class="lead">管理画面はパソコンのブラウザで開きます。IDとパスワードは管理者から受け取ってください。</p>
+        <div class="win">
+          <div class="chrome"><i></i><i></i><i></i><span class="url">…/admin/panel</span></div>
+          <div class="body"><div class="login"><b>ログイン</b><div style="margin-top:8px">ID</div><div class="f">IDを入力</div><div>パスワード</div><div class="f">••••••••</div><div class="abtn pri" style="text-align:center; padding:6px">ログイン</div></div></div>
+        </div>
+        <div class="warn"><b>5回間違えるとロックされます。</b>時間がたっても自動では解除されません。管理者に解除を頼んでください。ログインは12時間で切れるので、そのときはもう一度ログインします。</div>
+        <h3>権限（3段階）</h3>
+        <div class="tablewrap"><table>
+          <tr><th>できること</th><th class="c" style="width:14%">閲覧のみ</th><th class="c" style="width:14%">運用担当</th><th class="c" style="width:14%">管理者</th></tr>
+          <tr><td>ダッシュボード・会員一覧・会員詳細・配信履歴を見る</td><td class="c yes">○</td><td class="c yes">○</td><td class="c yes">○</td></tr>
+          <tr><td>CSVをダウンロードする</td><td class="c yes">○</td><td class="c yes">○</td><td class="c yes">○</td></tr>
+          <tr><td>一斉配信・個別メッセージを送る、自動返信を止める</td><td class="c no">—</td><td class="c yes">○</td><td class="c yes">○</td></tr>
+          <tr><td>会員のデータを削除する</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">○</td></tr>
+          <tr><td>管理画面のIDを管理する</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">○</td></tr>
+          <tr><td>会員に「LINEでの役割」（リーダー／運営）を付ける</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">○</td></tr>
+        </table></div>
+        <p class="muted">付与の方針（9/28会議）：管理者はKM代表アドレス、運用担当はKH側。KM・KH・いよぎんの担当者に順次付与します。</p>
+      </section>
+
+      <section class="card" id="ad-dash">
+        <h2>ダッシュボード</h2>
+        <p class="lead">会員の状況をひと目で確認できます。</p>
+        <div class="win">
+          <div class="top"><span class="mk">大</span><b>大洲カンパニー 管理画面</b><nav><span class="on">ダッシュボード</span><span>会員一覧</span><span>LINE配信</span><span>設定</span></nav><span class="whoami">みよし（管理者）</span></div>
+          <div class="body">
+            <div class="stats"><div class="stat"><div class="l">総友だち数</div><div class="v">26</div></div><div class="stat"><div class="l">有効会員</div><div class="v">24</div></div><div class="stat"><div class="l">退会・ブロック</div><div class="v">2</div></div><div class="stat"><div class="l">紹介者名 登録あり</div><div class="v">5</div></div></div>
+            <div class="charts">
+              <div class="chartc">友だち追加数の推移（週次）<div class="bars"><i style="height:20%"></i><i style="height:35%"></i><i style="height:30%"></i><i style="height:90%"></i><i style="height:45%"></i></div></div>
+              <div class="chartc">推しの分布<div class="hbar"><span>人に会いたい</span><i style="width:60%"></i></div><div class="hbar"><span>たべもの</span><i style="width:40%"></i></div><div class="hbar"><span>大洲城</span><i style="width:30%"></i></div></div>
+              <div class="chartc">関わり方の希望の分布<div class="hbar"><span>あそぶ・会う</span><i style="width:55%"></i></div><div class="hbar"><span>手伝う</span><i style="width:35%"></i></div><div class="hbar"><span>学ぶ</span><i style="width:25%"></i></div></div>
+            </div>
+          </div>
+        </div>
+        <p class="muted">数字・グラフは画面の例です。</p>
+      </section>
+
+      <section class="card" id="ad-list">
+        <h2>会員一覧</h2>
+        <div class="win">
+          <div class="top"><span class="mk">大</span><b>大洲カンパニー 管理画面</b><nav><span>ダッシュボード</span><span class="on">会員一覧</span><span>LINE配信</span><span>設定</span></nav></div>
+          <div class="body">
+            <div class="tb" style="position:relative"><span class="search">ニックネーム・会員IDで検索…</span><span class="achip on">すべて</span><span class="achip">有効会員</span><span class="achip">退会・ブロック</span><span style="flex:1"></span><span class="abtn">項目で絞り込む</span><span class="abtn">CSVダウンロード</span></div>
+            <table class="atable">
+              <tr><th>ニックネーム</th><th>友だち追加日</th><th>ステータス</th><th>推し</th><th>お住まい</th><th>関わり方</th><th>関係人口</th></tr>
+              <tr><td>あすか</td><td>2026-10-02</td><td><span class="pill act">有効</span></td><td>人に会いたい</td><td>大洲市内</td><td><span class="tag">あそぶ・会う</span></td><td>①</td></tr>
+              <tr><td>トシ</td><td>2026-10-02</td><td><span class="pill act">有効</span></td><td>大洲城</td><td>松山市</td><td><span class="tag">手伝う</span></td><td>②</td></tr>
+              <tr><td>のうだ</td><td>2026-10-02</td><td><span class="pill wd">退会・ブロック</span></td><td>たべもの</td><td>大阪府</td><td><span class="tag">応援する</span></td><td>①</td></tr>
+            </table>
+          </div>
+        </div>
+        <ol class="steps">
+          <li><b>検索</b>：ニックネームか会員ID（6桁）で探します</li>
+          <li><b>状態</b>：「有効会員」「退会・ブロック」で絞れます</li>
+          <li><b>項目で絞り込む</b>：推し・大洲との関係・お住まい・紹介元・関わり方の希望（複数選ぶと、どれかに当てはまる人）</li>
+          <li><b>CSVダウンロード</b>：今の絞り込みのまま、出したい項目を選んで書き出します。個人情報を含むので、使い終わったら消してください</li>
+        </ol>
+        <p class="muted">ニックネーム・人数は画面の例です。</p>
+      </section>
+
+      <section class="card" id="ad-detail">
+        <h2>会員詳細・役割・削除</h2>
+        <p class="lead">会員一覧の行を押すと、右側に詳細が開きます。管理者は、ここでLINEでの役割を付けたり、データを削除したりできます。</p>
+        <div class="win">
+          <div class="top"><span class="mk">大</span><b>大洲カンパニー 管理画面</b><nav><span>ダッシュボード</span><span class="on">会員一覧</span><span>LINE配信</span><span>設定</span></nav></div>
+          <div class="drawer-wrap">
+            <div class="body" style="opacity:.4"><table class="atable"><tr><th>ニックネーム</th><th>友だち追加日</th><th>ステータス</th></tr><tr><td>あすか</td><td>2026-10-02</td><td>有効</td></tr><tr><td>トシ</td><td>2026-10-02</td><td>有効</td></tr></table></div>
+            <div class="drawer">
+              <div class="nm">あすか</div><div style="color:#5A6472; font-size:11.5px">会員ID：222013</div>
+              <h5>基本情報</h5><div class="kv"><b>ステータス</b><span><span class="pill act">有効</span></span><b>推し</b><span>人に会いたい／たべもの・商品</span><b>大洲との関係</b><span>大洲に住んでいる</span><b>お住まい</b><span>大洲市内</span></div>
+              <h5>関係人口</h5><div class="kv"><b>区分</b><span>関係人口①</span></div>
+              <h5>紹介元</h5><div class="kv"><b>紹介元</b><span>家族・友人</span><b>紹介者名</b><span>登録あり</span></div>
+              <h5>LINEでの役割（リーダー投稿窓口・試行中）</h5><div class="kv"><b>役割</b><span class="sel t">リーダー（LINEから投稿できる）▾<span class="pin on">1</span></span></div>
+              <div style="position:absolute; left:14px; right:14px; bottom:14px; border-top:1px solid var(--admin-hair); padding-top:9px"><span class="abtn red t">この会員のデータを削除する<span class="pin on">2</span></span></div>
+            </div>
+          </div>
+        </div>
+        <ol class="steps">
+          <li><b>LINEでの役割（管理者のみ）</b>：「リーダー」か「運営」を選ぶと、その人のLINEのメニューに3つ目のタブ（「投稿」または「運営」）が増えます。本人がトーク画面を開き直すと反映されます。「なし」に戻すと通常の2タブに戻ります。1人に付けられる役割は1つです</li>
+          <li><b>データの削除（管理者のみ）</b>：確認のための入力をしてから削除します。ニックネーム・メール・紹介者名・個別チャットの本文がすぐ消え、元に戻せません。推し・関係・お住まい区分・関わり方は、統計用に個人と結びつかない形で残ります</li>
+        </ol>
+        <div class="note">紹介者のお名前は、詳細でも「登録あり／なし」しか表示しません。ニックネームは管理画面からは直せません。</div>
+      </section>
+
+      <section class="card" id="ad-deliver">
+        <h2>LINE配信</h2>
+        <p class="lead">「配信履歴」「一斉配信」「個別に配信」の3つがあります。配信は運用担当以上ができます。</p>
+        <h3>一斉配信</h3>
+        <div class="win">
+          <div class="top"><span class="mk">大</span><b>大洲カンパニー 管理画面</b><nav><span>ダッシュボード</span><span>会員一覧</span><span class="on">LINE配信</span><span>設定</span></nav></div>
+          <div class="body">
+            <div class="tb"><span class="achip">配信履歴</span><span class="achip on">一斉配信</span><span class="achip">個別に配信</span></div>
+            <div class="apanel"><h6>配信対象の絞り込み</h6><div class="fgrid"><div><label>推し</label><span class="sel">すべて ▾</span></div><div><label>大洲との関係</label><span class="sel">すべて ▾</span></div><div><label>お住まい</label><span class="sel">大洲市内 ▾</span></div><div><label>紹介元</label><span class="sel">すべて ▾</span></div></div><div class="count"><b>12</b><span>件に配信されます（退会・ブロック済みは自動で除外）</span></div></div>
+            <div class="apanel"><h6>メッセージ本文</h6><div class="ta">10/26(日)9時から肱川の河原で清掃をします。https://…</div><div style="text-align:right; color:#5A6472; font-size:11px">58 / 500文字</div></div>
+            <div style="text-align:right"><span class="abtn pri">送信する</span></div>
+          </div>
+        </div>
+        <ol class="steps">
+          <li>推し・大洲との関係・お住まい・紹介元・関わり方で、送る相手を絞ります（絞らなければ全員）</li>
+          <li>配信される人数を確認します。有効会員の8割を超えると警告が出ます</li>
+          <li>本文を500文字以内で書きます。本文のURLは会員ごとの短縮URLに自動で置き換わり、誰が押したかを数えます</li>
+          <li>「送信する」→確認画面→送信。<b>送ったものは取り消せません</b></li>
+        </ol>
+        <h3>個別に配信</h3>
+        <div class="win"><div class="body">
+          <div class="chatwin">
+            <div class="list"><div class="on">あすか<br><span style="color:#5A6472">来月の収穫祭は…</span></div><div>トシ</div><div>こやま</div></div>
+            <div class="mainc"><div style="display:flex; justify-content:space-between; align-items:center"><b>あすか</b><span>個別やりとり <span class="switch"></span></span></div><div class="msg in">来月の収穫祭、全員に送ってもらうことはできますか？</div><div class="msg out">確認して、来週お返事しますね。</div></div>
+          </div>
+        </div></div>
+        <p>会員を選んで1対1でやりとりします。<b>「個別やりとり」をオンにすると、その人への自動返信が止まります。</b>事故対応や、LINEでしか連絡が取れない人とのやりとりに使います。</p>
+        <p class="muted">配信履歴では、URLを含む配信のリンク遷移率（クリック率）が見られます。「開封率」はLINEの仕様で取れないため表示していません。</p>
+      </section>
+
+      <section class="card" id="ad-settings">
+        <h2>ID管理（管理者のみ）</h2>
+        <p class="lead">「設定」画面で、管理画面に入れるIDを追加・変更します。</p>
+        <div class="win">
+          <div class="top"><span class="mk">大</span><b>大洲カンパニー 管理画面</b><nav><span>ダッシュボード</span><span>会員一覧</span><span>LINE配信</span><span class="on">設定</span></nav></div>
+          <div class="body">
+            <div style="margin-bottom:9px"><span class="abtn dark">＋ IDを追加</span></div>
+            <table class="atable">
+              <tr><th>ID</th><th>権限</th><th>追加日</th><th></th></tr>
+              <tr><td>km-admin</td><td><span class="sel">管理者 ▾</span></td><td>2026-09-25</td><td>パスワード再設定・無効化…</td></tr>
+              <tr><td>kh-operator</td><td><span class="sel">運用担当 ▾</span></td><td>2026-10-02</td><td>パスワード再設定・無効化…</td></tr>
+              <tr><td>iyogin-viewer</td><td><span class="sel">閲覧のみ ▾</span></td><td>2026-10-02</td><td><b style="color:#E5484D">ロック中</b>・解除</td></tr>
+            </table>
+          </div>
+        </div>
+        <ol class="steps">
+          <li><b>IDを追加</b>：ID・パスワード・権限を決めて発行します。ID・パスワードは口頭や手渡しなど安全な方法で本人に伝えます（自動メールはありません）</li>
+          <li><b>権限の変更</b>：一覧から変えられます</li>
+          <li><b>その他</b>：パスワード再設定・無効化・ロック解除・IDや表示名の変更・削除ができます。使わなくなった人のIDは無効化します。自分自身の無効化・削除はできません</li>
+        </ol>
+        <p class="muted">IDは画面の例です。</p>
+      </section>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer class="site">一般社団法人キタ・マネジメント ／ OZU 555 PROJECT ／ 2026年10月19日版</footer>
+
+<script>
+  // タブ切り替え（URLの#でも開ける：#member/leader など）
+  const tabs = { overview: "tab-overview", member: "tab-member", admin: "tab-admin" };
+  const subs = { general: "sub-general", leader: "sub-leader", unei: "sub-unei" };
+  function selectTab(group, id) {
+    document.querySelectorAll(group).forEach((b) => {
+      const on = b.id === id;
+      b.setAttribute("aria-selected", on ? "true" : "false");
+      b.tabIndex = on ? 0 : -1;
+      document.getElementById(b.getAttribute("aria-controls")).hidden = !on;
+    });
+  }
+  function fromHash() {
+    const h = location.hash.slice(1);
+    const [main, sub] = h.split("/");
+    if (tabs[main]) selectTab("nav.tabs button", tabs[main]);
+    if (main === "member" && subs[sub]) selectTab(".subtabs button", subs[sub]);
+    if (h.startsWith("ov-")) selectTab("nav.tabs button", tabs.overview);
+    if (h.startsWith("ad-")) selectTab("nav.tabs button", tabs.admin);
+  }
+  document.querySelectorAll("nav.tabs button").forEach((b) => b.addEventListener("click", () => {
+    selectTab("nav.tabs button", b.id);
+    history.replaceState(null, "", "#" + Object.keys(tabs).find((k) => tabs[k] === b.id));
+    window.scrollTo({ top: 0 });
+  }));
+  document.querySelectorAll(".subtabs button").forEach((b) => b.addEventListener("click", () => {
+    selectTab(".subtabs button", b.id);
+    history.replaceState(null, "", "#member/" + Object.keys(subs).find((k) => subs[k] === b.id));
+  }));
+  // 矢印キーでタブ移動
+  document.querySelectorAll('[role="tablist"]').forEach((list) => list.addEventListener("keydown", (e) => {
+    const btns = [...list.querySelectorAll('[role="tab"]')];
+    const i = btns.indexOf(document.activeElement);
+    if (i < 0 || !["ArrowRight", "ArrowLeft"].includes(e.key)) return;
+    const n = btns.at((i + (e.key === "ArrowRight" ? 1 : -1)) % btns.length);
+    n.focus(); n.click();
+  }));
+  window.addEventListener("hashchange", fromHash);
+  fromHash();
+</script>
+</body>
+</html>
